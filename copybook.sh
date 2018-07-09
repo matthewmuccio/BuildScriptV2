@@ -3,7 +3,7 @@
 ###############
 
 # Email address (<email_addr>): me@matthewmuccio.com
-# Server IP address (<vps_ip_addr>): 159.89.239.113
+# Server IP address (<vps_ip_addr>): 178.128.157.7
 # Server name (<vps_name>): ubuntu-s-1vcpu-1gb-nyc1-01
 # OS username (<os_username>) (a string that cannot be "root"): matthewmuccio
 # OS password (<os_password>) (a string longer than eight characters): picklefishlips!
@@ -24,7 +24,7 @@ cd ~/BuildScriptV2
 
 sh -c 'echo "matthewmuccio:picklefishlips!" > .credentials'
 
-ssh root@159.89.239.113
+ssh root@178.128.157.7
 
 ##########
 # REMOTE #
@@ -54,11 +54,11 @@ exit
 #########
 
 # Copies keys and username/password combination from credentials to the remote machine.
-scp ~/.ssh/id_rsa.pub root@159.89.239.113:/etc/ssh/matthewmuccio/authorized_keys
+scp ~/.ssh/id_rsa.pub root@178.128.157.7:/etc/ssh/matthewmuccio/authorized_keys
 
-scp .credentials root@159.89.239.113:/home/matthewmuccio/
+scp .credentials root@178.128.157.7:/home/matthewmuccio/
 
-ssh root@159.89.239.113
+ssh root@178.128.157.7
 
 ##########
 # REMOTE #
@@ -89,6 +89,9 @@ sh -c 'echo "# Added by Katabasis build process" >> /etc/ssh/sshd_config'
 sh -c 'echo "AllowUsers matthewmuccio" >> /etc/ssh/sshd_config'
 
 systemctl reload sshd
+
+# Downloads the package lists from the repositories and "updates" them to get information on the newest versions of packages and their dependencies.
+apt-get -y update
 
 # Firewalld installation, configuration, and set-up.
 apt-get -y install firewalld
